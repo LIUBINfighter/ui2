@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义样式 */
+.ant-input-search-button {
+  @apply bg-blue-900 border-blue-900;
+}
+
+.ant-input-search-button:hover {
+  @apply bg-blue-800 border-blue-800;
+}
+
+.ant-radio-wrapper:hover .ant-radio-inner {
+  @apply border-blue-900;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  @apply border-blue-900 bg-blue-900;
+} 
