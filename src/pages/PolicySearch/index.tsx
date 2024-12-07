@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, KeyboardEvent } from 'react';
 import { Select, Input, Radio, DatePicker, Button, Popover, AutoComplete } from 'antd';
 import { SearchOutlined, BulbOutlined, HistoryOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const PolicySearch = () => {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [options, setOptions] = useState<{ value: string }[]>([]);
 
@@ -82,6 +84,22 @@ const PolicySearch = () => {
     </div>
   );
 
+  // 处理搜索提交
+  const handleSearchSubmit = () => {
+    if (!searchValue.trim()) return;
+    
+    navigate('/search-result', {
+      state: {
+        keyword: searchValue,
+        filters: {
+          area: 'all', // 可以添加其他筛选条件
+          type: 'policy',
+          dateRange: null
+        }
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 顶部标题 */}
@@ -142,6 +160,7 @@ const PolicySearch = () => {
                 size="large"
                 placeholder="输入政策关键词..."
                 enterButton={<SearchOutlined />}
+                onSearch={handleSearchSubmit}
               />
             </AutoComplete>
           </div>
